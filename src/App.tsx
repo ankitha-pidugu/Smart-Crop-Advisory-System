@@ -93,44 +93,36 @@ function AppContent() {
     <div className="min-h-screen bg-background">
       {/* Top Navigation Bar */}
       {showNavigation && (
-        <div className="bg-white border-b border-gray-200 px-3 py-2 sm:px-4 sm:py-3 sticky top-0 z-30 shadow-sm">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
-            {/* Left: Title + Location badge */}
-            <div className="flex items-center gap-2 min-w-0">
-              <h1 className="text-sm sm:text-base lg:text-lg font-semibold text-green-700 whitespace-nowrap">
-                <span className="hidden sm:inline">Smart Crop Advisory</span>
-                <span className="sm:hidden">🌱 Crop Advisory</span>
-              </h1>
+        <div className="bg-white border-b border-gray-200 px-4 py-3">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <h1 className="text-lg font-semibold text-green-700">Smart Crop Advisory</h1>
               {userLocation && (
-                <div className="hidden md:flex items-center gap-1 text-xs text-gray-500 bg-gray-50 rounded-full px-2 py-1 border truncate max-w-[160px]">
-                  <MapPin className="h-3 w-3 flex-shrink-0" />
-                  <span className="truncate">{userLocation}</span>
+                <div className="flex items-center space-x-1 text-sm text-gray-500">
+                  <MapPin className="h-4 w-4" />
+                  <span>{userLocation}</span>
                 </div>
               )}
             </div>
             
-            {/* Right: Action buttons */}
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-              {/* Location button — icon only on mobile */}
+            <div className="flex items-center space-x-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleRequestLocation}
-                className="text-green-600 border-green-200 hover:bg-green-50 h-8 sm:h-9 px-2 sm:px-3 text-xs sm:text-sm"
+                className="text-green-600 border-green-200 hover:bg-green-50"
               >
-                <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
-                <span className="hidden sm:inline ml-1.5">{translate('allowLocation', currentLanguage)}</span>
+                <MapPin className="h-4 w-4 mr-2" />
+                {translate('allowLocation', currentLanguage)}
               </Button>
               
-              {/* Back to Home button — icon only on mobile */}
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => navigate("/")}
-                className="text-blue-600 border-blue-200 hover:bg-blue-50 h-8 sm:h-9 px-2 sm:px-3 text-xs sm:text-sm"
+                className="text-blue-600 border-blue-200 hover:bg-blue-50"
               >
-                <span className="sm:hidden">🏠</span>
-                <span className="hidden sm:inline">{translate('backToHome', currentLanguage) || 'Back to Home'}</span>
+                {translate('backToHome', currentLanguage) || 'Back to Home'}
               </Button>
             </div>
           </div>
