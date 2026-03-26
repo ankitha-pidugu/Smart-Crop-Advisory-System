@@ -28,19 +28,19 @@ export function FarmerInputForm({ onSubmit, language, detectedPincode, detectedA
   const [formData, setFormData] = useState<FarmerFormData>({
     soilType: "",
     phLevel: "",
-    location: "",
+    location: detectedAddress || "",
     district: "",
     existingCrop: "",
     preferredCrop: "",
   });
 
-  const [pinCode, setPinCode] = useState("");
+  const [pinCode, setPinCode] = useState(detectedPincode || "");
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const [isAutoFilled, setIsAutoFilled] = useState(false);
+  const [isAutoFilled, setIsAutoFilled] = useState(!!detectedAddress);
 
-  // Auto-fill pincode from GPS detection
+  // Auto-fill pincode from GPS detection, handling cases where it updates AFTER mount
   useEffect(() => {
-    if (detectedPincode && detectedPincode.length >= 4) {
+    if (detectedPincode && detectedPincode !== pinCode && detectedPincode.length >= 4) {
       handlePinCodeChange(detectedPincode);
     }
   }, [detectedPincode]);
