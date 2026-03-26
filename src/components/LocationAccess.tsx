@@ -29,16 +29,20 @@ export function LocationAccess({ onLocationAllowed, onLocationDenied, language }
       async (position) => {
         const { latitude, longitude } = position.coords;
         
-        // Reverse geocoding to get address
+        // Reverse geocoding using free OpenStreetMap Nominatim API
         try {
           const response = await fetch(
-            `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=demo&limit=1`
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`,
+            { headers: { 'Accept-Language': 'en' } }
           );
           const data = await response.json();
-          const result = data.results?.[0];
-          const address = result?.formatted || `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
-          const pincode = result?.components?.postcode;
-          
+          const addr = data.address || {};
+          const pincode = addr.postcode || '';
+          const village = addr.village || addr.suburb || addr.neighbourhood || '';
+          const district = addr.county || addr.state_district || addr.district || '';
+          const state = addr.state || '';
+          const address = [village, district, state].filter(Boolean).join(', ') || data.display_name || `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+
           setIsLoading(false);
           onLocationAllowed(latitude, longitude, address, pincode);
         } catch (err) {

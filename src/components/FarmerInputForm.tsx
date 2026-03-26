@@ -11,6 +11,7 @@ interface FarmerInputFormProps {
   onSubmit: (data: FarmerFormData) => void;
   language: string;
   detectedPincode?: string;
+  detectedAddress?: string;
 }
 
 export interface FarmerFormData {
@@ -22,7 +23,7 @@ export interface FarmerFormData {
   preferredCrop: string;
 }
 
-export function FarmerInputForm({ onSubmit, language, detectedPincode }: FarmerInputFormProps) {
+export function FarmerInputForm({ onSubmit, language, detectedPincode, detectedAddress }: FarmerInputFormProps) {
   const { t } = useTranslations(language);
   const [formData, setFormData] = useState<FarmerFormData>({
     soilType: "",
@@ -35,12 +36,22 @@ export function FarmerInputForm({ onSubmit, language, detectedPincode }: FarmerI
 
   const [pinCode, setPinCode] = useState("");
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const [isAutoFilled, setIsAutoFilled] = useState(false);
 
+  // Auto-fill pincode from GPS detection
   useEffect(() => {
-    if (detectedPincode && detectedPincode.length === 6) {
+    if (detectedPincode && detectedPincode.length >= 4) {
       handlePinCodeChange(detectedPincode);
     }
   }, [detectedPincode]);
+
+  // Auto-fill address from GPS detection
+  useEffect(() => {
+    if (detectedAddress) {
+      handleInputChange("location", detectedAddress);
+      setIsAutoFilled(true);
+    }
+  }, [detectedAddress]);
 
   const handlePinCodeChange = async (value: string) => {
     setPinCode(value);
@@ -157,9 +168,17 @@ export function FarmerInputForm({ onSubmit, language, detectedPincode }: FarmerI
                     type="text"
                     placeholder={t('locationPlaceholder')}
                     value={formData.location}
-                    onChange={(e) => handleInputChange("location", e.target.value)}
-                    className="bg-white border-green-200 focus:border-green-500"
+                    onChange={(e) => {
+                      handleInputChange("location", e.target.value);
+                      setIsAutoFilled(false);
+                    }}
+                    className={`bg-white border-green-200 focus:border-green-500 ${isAutoFilled ? 'border-green-400 bg-green-50' : ''}`}
                   />
+                  {isAutoFilled && (
+                    <p className="text-xs text-green-600 flex items-center gap-1">
+                      <MapPin className="h-3 w-3" /> Auto-detected from GPS
+                    </p>
+                  )}
                   <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
                     <p className="text-sm text-blue-700 flex items-center gap-2">
                       <MapPin className="h-4 w-4" />

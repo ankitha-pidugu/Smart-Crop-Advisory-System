@@ -21,6 +21,7 @@ function AppContent() {
   const { translations } = useTranslations(currentLanguage);
   const [userLocation, setUserLocation] = useState<string>("");
   const [detectedPincode, setDetectedPincode] = useState<string>("");
+  const [detectedAddress, setDetectedAddress] = useState<string>("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -70,13 +71,13 @@ function AppContent() {
 
   const handleLocationAllowed = async (latitude: number, longitude: number, address: string, pincode?: string) => {
     try {
-      // Simulate location saving
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
       setUserLocation(address);
       if (pincode) setDetectedPincode(pincode);
+      setDetectedAddress(address);
       setShowLocationModal(false);
-      toast.success(translate('locationUpdated', currentLanguage) || 'Location updated successfully');
+      toast.success(translate('locationUpdated', currentLanguage) || 'Location detected! Filling form...');
+      // Navigate to form so it auto-fills immediately
+      navigate('/form');
     } catch (error) {
       console.error('Update location error:', error);
       toast.error(translate('locationError', currentLanguage));
@@ -148,6 +149,7 @@ function AppContent() {
               onSubmit={handleFormSubmit} 
               language={currentLanguage} 
               detectedPincode={detectedPincode}
+              detectedAddress={detectedAddress}
             />
           } 
         />
