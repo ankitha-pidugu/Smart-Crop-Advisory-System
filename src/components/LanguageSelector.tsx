@@ -8,7 +8,6 @@ interface Language {
   code: string;
   name: string;
   nativeName: string;
-  flag: string;
 }
 
 interface LanguageSelectorProps {
@@ -18,16 +17,16 @@ interface LanguageSelectorProps {
 }
 
 export const SUPPORTED_LANGUAGES: Language[] = [
-  { code: "en", name: "English", nativeName: "English", flag: "🇺🇸" },
-  { code: "hi", name: "Hindi", nativeName: "हिंदी", flag: "🇮🇳" },
-  { code: "pa", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ", flag: "🇮🇳" },
-  { code: "bn", name: "Bengali", nativeName: "বাংলা", flag: "🇧🇩" },
-  { code: "te", name: "Telugu", nativeName: "తెలుగు", flag: "🇮🇳" },
-  { code: "ta", name: "Tamil", nativeName: "தமிழ்", flag: "🇮🇳" },
-  { code: "gu", name: "Gujarati", nativeName: "ગુજરાતી", flag: "🇮🇳" },
-  { code: "mr", name: "Marathi", nativeName: "मराठी", flag: "🇮🇳" },
-  { code: "fr", name: "French", nativeName: "Français", flag: "🇫🇷" },
-  { code: "es", name: "Spanish", nativeName: "Español", flag: "🇪🇸" },
+  { code: "en", name: "English", nativeName: "English" },
+  { code: "hi", name: "Hindi", nativeName: "हिंदी" },
+  { code: "pa", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ" },
+  { code: "bn", name: "Bengali", nativeName: "বাংলা" },
+  { code: "te", name: "Telugu", nativeName: "తెలుగు" },
+  { code: "ta", name: "Tamil", nativeName: "தமிழ்" },
+  { code: "gu", name: "Gujarati", nativeName: "ગુજરાતી" },
+  { code: "mr", name: "Marathi", nativeName: "मराठी" },
+  { code: "fr", name: "French", nativeName: "Français" },
+  { code: "es", name: "Spanish", nativeName: "Español" },
 ];
 
 export function LanguageSelector({ currentLanguage, onLanguageChange, translations }: LanguageSelectorProps) {
@@ -45,7 +44,6 @@ export function LanguageSelector({ currentLanguage, onLanguageChange, translatio
         className="fixed top-4 right-4 z-50 bg-white/90 backdrop-blur-sm border-green-200 hover:bg-green-50 shadow-lg"
       >
         <Globe className="h-4 w-4 mr-2" />
-        <span className="mr-1">{currentLang.flag}</span>
         {currentLang.code.toUpperCase()}
       </Button>
     );
@@ -83,7 +81,6 @@ export function LanguageSelector({ currentLanguage, onLanguageChange, translatio
                   : "hover:bg-gray-50 border-gray-200"
               }`}
             >
-              <span className="text-lg">{language.flag}</span>
               <div className="flex-1 text-left">
                 <div className="font-medium">{language.nativeName}</div>
                 <div className="text-sm text-gray-500">{language.name}</div>
