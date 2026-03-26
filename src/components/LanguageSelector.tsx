@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Globe, Languages } from "lucide-react";
+import { Globe, Languages, Check } from "lucide-react";
 
 interface Language {
   code: string;
   name: string;
   nativeName: string;
-  flag: string;
 }
 
 interface LanguageSelectorProps {
@@ -18,16 +15,16 @@ interface LanguageSelectorProps {
 }
 
 export const SUPPORTED_LANGUAGES: Language[] = [
-  { code: "en", name: "English", nativeName: "English", flag: "🇺🇸" },
-  { code: "hi", name: "Hindi", nativeName: "हिंदी", flag: "🇮🇳" },
-  { code: "pa", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ", flag: "🇮🇳" },
-  { code: "bn", name: "Bengali", nativeName: "বাংলা", flag: "🇧🇩" },
-  { code: "te", name: "Telugu", nativeName: "తెలుగు", flag: "🇮🇳" },
-  { code: "ta", name: "Tamil", nativeName: "தமிழ்", flag: "🇮🇳" },
-  { code: "gu", name: "Gujarati", nativeName: "ગુજરાતી", flag: "🇮🇳" },
-  { code: "mr", name: "Marathi", nativeName: "मराठी", flag: "🇮🇳" },
-  { code: "fr", name: "French", nativeName: "Français", flag: "🇫🇷" },
-  { code: "es", name: "Spanish", nativeName: "Español", flag: "🇪🇸" },
+  { code: "en", name: "English", nativeName: "English" },
+  { code: "hi", name: "Hindi", nativeName: "हिंदी" },
+  { code: "pa", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ" },
+  { code: "bn", name: "Bengali", nativeName: "বাংলা" },
+  { code: "te", name: "Telugu", nativeName: "తెలుగు" },
+  { code: "ta", name: "Tamil", nativeName: "தமிழ்" },
+  { code: "gu", name: "Gujarati", nativeName: "ગુજરાતી" },
+  { code: "mr", name: "Marathi", nativeName: "मराठी" },
+  { code: "fr", name: "French", nativeName: "Français" },
+  { code: "es", name: "Spanish", nativeName: "Español" },
 ];
 
 export function LanguageSelector({ currentLanguage, onLanguageChange, translations }: LanguageSelectorProps) {
@@ -36,72 +33,77 @@ export function LanguageSelector({ currentLanguage, onLanguageChange, translatio
 
   const currentLang = SUPPORTED_LANGUAGES.find(lang => lang.code === currentLanguage) || SUPPORTED_LANGUAGES[0];
 
-  if (!isOpen) {
-    return (
+  return (
+    <>
+      {/* Trigger Button */}
       <Button
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsOpen(!isOpen)}
         variant="outline"
         size="sm"
-        className="fixed top-4 right-4 z-50 bg-white/90 backdrop-blur-sm border-green-200 hover:bg-green-50 shadow-lg"
+        className="fixed top-3 right-3 z-50 bg-white/95 backdrop-blur-sm border-green-200 hover:bg-green-50 shadow-lg rounded-full px-3 py-2 h-auto flex items-center gap-1.5 text-sm font-medium"
       >
-        <Globe className="h-4 w-4 mr-2" />
-        <span className="mr-1">{currentLang.flag}</span>
-        {currentLang.code.toUpperCase()}
+        <Globe className="h-3.5 w-3.5 text-green-600 flex-shrink-0" />
+        <span className="text-green-700 hidden xs:inline">{currentLang.nativeName}</span>
+        <span className="text-green-700 xs:hidden">{currentLang.code.toUpperCase()}</span>
       </Button>
-    );
-  }
 
-  return (
-    <Card className="fixed top-4 right-4 z-50 w-72 shadow-2xl border-green-200 bg-white/95 backdrop-blur-sm">
-      <CardContent className="p-4">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <Languages className="h-5 w-5 text-green-600" />
-            <span className="font-medium text-gray-800">{t('chooseLanguage')}</span>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsOpen(false)}
-            className="h-8 w-8 p-0 hover:bg-green-100"
-          >
-            ×
-          </Button>
-        </div>
+      {/* Backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/20 z-40 backdrop-blur-[1px]"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
 
-        <div className="space-y-2">
-          {SUPPORTED_LANGUAGES.map((language) => (
+      {/* Dropdown Panel */}
+      {isOpen && (
+        <div className="fixed top-14 right-3 z-50 w-[calc(100vw-24px)] max-w-xs bg-white rounded-2xl shadow-2xl border border-green-100 overflow-hidden">
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-green-600 to-green-700">
+            <div className="flex items-center gap-2">
+              <Languages className="h-4 w-4 text-white" />
+              <span className="font-semibold text-white text-sm">Choose Language</span>
+            </div>
             <button
-              key={language.code}
-              onClick={() => {
-                onLanguageChange(language.code);
-                setIsOpen(false);
-              }}
-              className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-colors ${
-                currentLanguage === language.code
-                  ? "bg-green-50 border-green-200 text-green-800"
-                  : "hover:bg-gray-50 border-gray-200"
-              }`}
+              onClick={() => setIsOpen(false)}
+              className="text-white/80 hover:text-white text-xl leading-none w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
             >
-              <span className="text-lg">{language.flag}</span>
-              <div className="flex-1 text-left">
-                <div className="font-medium">{language.nativeName}</div>
-                <div className="text-sm text-gray-500">{language.name}</div>
-              </div>
-              {currentLanguage === language.code && (
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              )}
+              ×
             </button>
-          ))}
-        </div>
+          </div>
 
-        <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-sm text-blue-700 flex items-center gap-2">
-            <Globe className="h-4 w-4" />
-            More languages coming soon!
-          </p>
+          {/* Language List */}
+          <div className="p-2 max-h-[60vh] overflow-y-auto">
+            <div className="grid grid-cols-2 gap-1.5">
+              {SUPPORTED_LANGUAGES.map((language) => {
+                const isActive = currentLanguage === language.code;
+                return (
+                  <button
+                    key={language.code}
+                    onClick={() => {
+                      onLanguageChange(language.code);
+                      setIsOpen(false);
+                    }}
+                    className={`flex flex-col items-start p-3 rounded-xl border transition-all text-left ${
+                      isActive
+                        ? "bg-green-50 border-green-300 shadow-sm"
+                        : "hover:bg-gray-50 border-transparent hover:border-gray-200"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between w-full mb-0.5">
+                      <span className={`text-sm font-semibold ${isActive ? "text-green-700" : "text-gray-800"}`}>
+                        {language.nativeName}
+                      </span>
+                      {isActive && <Check className="h-3.5 w-3.5 text-green-600 flex-shrink-0" />}
+                    </div>
+                    <span className="text-xs text-gray-500">{language.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </CardContent>
-    </Card>
+      )}
+    </>
   );
 }
