@@ -125,9 +125,9 @@ export function Chatbot({ language, formData }: ChatbotProps) {
 
   return (
     <Card 
-      className="fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-6 w-full sm:w-96 h-[100dvh] sm:h-[600px] shadow-2xl z-[9999] border-green-200 flex flex-col bg-white sm:rounded-2xl rounded-none transition-all duration-300 overflow-hidden"
+      className="fixed bottom-20 right-4 sm:right-6 w-[320px] sm:w-80 h-[500px] max-h-[80vh] max-w-[calc(100vw-2rem)] shadow-2xl z-[9999] border-green-200 flex flex-col bg-white rounded-2xl transition-all duration-300 overflow-hidden"
     >
-      <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white p-4 shrink-0 sm:rounded-t-2xl rounded-none">
+      <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white p-4 shrink-0 rounded-t-2xl">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-lg font-semibold">
             <div className="bg-white/20 p-1.5 rounded-lg">
