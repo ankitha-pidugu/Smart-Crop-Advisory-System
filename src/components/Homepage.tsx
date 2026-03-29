@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { Sprout, Brain, Leaf, Users, Bug } from "lucide-react";
+import { Sprout, Brain, Leaf, Users, Bug, MapPin, Cpu } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useTranslations } from "../utils/translations";
 
@@ -106,6 +106,63 @@ export function Homepage({ onGetStarted, onPestReport, language }: HomepageProps
                 {t('localLanguageSupportDescription')}
               </p>
             </Card>
+          </div>
+        </div>
+      </section>
+      {/* How It Works Section */}
+      <section className="py-16 bg-gradient-to-b from-white to-green-50 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 relative">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 inline-block relative">
+              {t('How It Works')}
+              <div className="absolute -bottom-2 left-1/4 right-1/4 h-1.5 bg-green-500 rounded-full"></div>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
+              {t('Your journey to smarter, more profitable farming in 3 simple steps')}
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto relative px-4 sm:px-0">
+            {/* Connecting dashed line for desktop */}
+            <div className="hidden md:block absolute top-[48px] left-[16%] right-[16%] h-1 border-t-4 border-dashed border-green-200 z-0"></div>
+            
+            <div className="grid md:grid-cols-3 gap-12 lg:gap-16 relative z-10">
+              {/* Step 1 */}
+              <div className="text-center group relative">
+                <div className="bg-white border-4 border-green-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:border-green-500 group-hover:scale-110 transition-all duration-500 relative z-10">
+                  <div className="absolute -top-2 -right-2 bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-lg ring-4 ring-white">1</div>
+                  <MapPin className="h-10 w-10 text-green-600 group-hover:text-green-500 transition-colors duration-500 group-hover:animate-bounce" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-green-700 transition-colors">{t('Share Details')}</h3>
+                <p className="text-gray-600 leading-relaxed text-lg">
+                  {t('Tell us about your soil, location, and farming goals using our simple form or voice assistant.')}
+                </p>
+              </div>
+
+              {/* Step 2 */}
+              <div className="text-center group relative">
+                <div className="bg-white border-4 border-green-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:border-green-500 group-hover:scale-110 transition-all duration-500 relative z-10">
+                  <div className="absolute -top-2 -right-2 bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-lg ring-4 ring-white">2</div>
+                  <Cpu className="h-10 w-10 text-green-600 group-hover:text-green-500 transition-colors duration-500 group-hover:animate-pulse" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-green-700 transition-colors">{t('AI Analysis')}</h3>
+                <p className="text-gray-600 leading-relaxed text-lg">
+                  {t('Our AI instantly analyzes local weather, soil data, and market trends for your specific region.')}
+                </p>
+              </div>
+
+              {/* Step 3 */}
+              <div className="text-center group relative">
+                <div className="bg-white border-4 border-green-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:border-green-500 group-hover:scale-110 transition-all duration-500 relative z-10">
+                  <div className="absolute -top-2 -right-2 bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-lg ring-4 ring-white">3</div>
+                  <Sprout className="h-10 w-10 text-green-600 group-hover:text-green-500 transition-colors duration-500 group-hover:scale-125" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-green-700 transition-colors">{t('Get Solutions')}</h3>
+                <p className="text-gray-600 leading-relaxed text-lg">
+                  {t('Receive tailored crop recommendations, pest solutions, and 24/7 farming advice in your local language.')}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
