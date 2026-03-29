@@ -116,7 +116,7 @@ export function Chatbot({ language, formData }: ChatbotProps) {
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 sm:bottom-20 sm:right-6 h-14 w-14 rounded-full bg-green-600 hover:bg-green-700 shadow-xl shadow-green-600/40 z-[9999] hover:scale-110 transition-transform duration-300 border-2 border-white flex items-center justify-center"
+        className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg z-50"
       >
         <MessageCircle className="h-6 w-6 text-white" />
       </Button>
@@ -124,27 +124,23 @@ export function Chatbot({ language, formData }: ChatbotProps) {
   }
 
   return (
-    <Card 
-      className="fixed bottom-20 right-4 sm:right-6 w-[320px] sm:w-80 h-[500px] max-h-[80vh] max-w-[calc(100vw-2rem)] shadow-2xl z-[9999] border-green-200 flex flex-col bg-white rounded-2xl transition-all duration-300 overflow-hidden"
-    >
-      <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white p-4 shrink-0 rounded-t-2xl">
+    <Card className="fixed bottom-6 right-6 w-80 h-[500px] shadow-2xl z-50 border-green-200 flex flex-col">
+      <CardHeader className="bg-green-600 text-white rounded-t-lg p-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-            <div className="bg-white/20 p-1.5 rounded-lg">
-              <Bot className="h-5 w-5 text-white" />
-            </div>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <Bot className="h-5 w-5" />
             {t('farmAssistant')}
           </CardTitle>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsOpen(false)}
-            className="text-white hover:bg-white/20 h-8 w-8 p-0 rounded-full transition-colors"
+            className="text-white hover:bg-green-700 h-8 w-8 p-0"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4" />
           </Button>
         </div>
-        <p className="text-green-100 text-sm mt-1 opacity-90">
+        <p className="text-green-100 text-sm">
           {t('chatbotDescription')}
         </p>
       </CardHeader>
@@ -209,43 +205,43 @@ export function Chatbot({ language, formData }: ChatbotProps) {
           </div>
         </div>
 
-        {/* Input + mic + close button */}
-        <div className="p-3 sm:p-4 border-t border-green-100 bg-gray-50 shrink-0">
+        {/* Input + mic + back button */}
+        <div className="p-4 border-t border-gray-200">
           <div className="flex gap-2 items-center">
             <Input
               value={inputMessage}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder={t('typeYourQuestion')}
-              className="flex-1 border-green-200 focus:border-green-500 bg-white rounded-full px-4"
+              className="flex-1 border-green-200 focus:border-green-500"
             />
             <Button
               onClick={() => handleSendMessage()}
-              size="icon"
-              className="bg-green-600 hover:bg-green-700 h-10 w-10 rounded-full shrink-0 shadow-md transition-transform hover:scale-105"
+              size="sm"
+              className="bg-green-600 hover:bg-green-700"
               disabled={!inputMessage.trim()}
             >
               <Send className="h-4 w-4" />
             </Button>
             <Button
               onClick={startListening}
-              size="icon"
+              size="sm"
               className={`${
-                listening ? "bg-red-500 animate-pulse" : "bg-green-500 hover:bg-green-600"
-              } h-10 w-10 rounded-full shrink-0 shadow-md transition-all hover:scale-105`}
+                listening ? "bg-red-500" : "bg-green-500"
+              } hover:opacity-80`}
             >
               <Mic className="h-4 w-4 text-white" />
             </Button>
           </div>
-          {/* Mobile close button at the bottom */}
-          <div className="mt-3 text-center sm:hidden">
+          {/* Wrong/Back button */}
+          <div className="mt-2 text-center">
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={() => setIsOpen(false)}
-              className="text-gray-500 hover:text-red-600 hover:bg-red-50"
+              className="text-red-500 border-red-300 hover:bg-red-100"
             >
-              <X className="h-4 w-4 mr-1" /> Close Chat
+              <X className="h-4 w-4 mr-1" /> {t('back')}
             </Button>
           </div>
         </div>
