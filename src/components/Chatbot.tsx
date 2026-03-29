@@ -116,7 +116,7 @@ export function Chatbot({ language, formData }: ChatbotProps) {
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 h-14 w-14 rounded-full bg-green-600 hover:bg-green-700 shadow-[0_0_20px_rgba(22,163,74,0.4)] z-50 hover:scale-110 transition-transform duration-300 border-2 border-white"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 h-14 w-14 rounded-full bg-green-600 hover:bg-green-700 shadow-xl shadow-green-600/40 z-[99] hover:scale-110 transition-transform duration-300 border-2 border-white flex items-center justify-center"
       >
         <MessageCircle className="h-6 w-6 text-white" />
       </Button>
@@ -124,7 +124,7 @@ export function Chatbot({ language, formData }: ChatbotProps) {
   }
 
   return (
-    <Card className="fixed inset-0 sm:inset-auto sm:bottom-6 sm:right-6 w-full sm:w-96 h-[100dvh] sm:h-[600px] shadow-2xl z-[100] border-green-200 flex flex-col bg-white sm:rounded-2xl rounded-none transition-all duration-300 overflow-hidden">
+    <Card className="fixed inset-0 sm:inset-auto sm:bottom-6 sm:right-6 w-full sm:w-96 h-[100dvh] sm:h-[600px] shadow-2xl z-50 border-green-200 flex flex-col bg-white sm:rounded-2xl rounded-none transition-all duration-300 overflow-hidden">
       <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white p-4 shrink-0 sm:rounded-t-2xl rounded-none">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-lg font-semibold">
